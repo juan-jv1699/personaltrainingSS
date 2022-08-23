@@ -1,0 +1,30 @@
+/* #questions{
+    width: 40px;
+    height: 40px;
+    border: none;
+    position: relative;
+    top: -95px;
+    left: 250px;
+    cursor: pointer;
+}
+#questions:hover{
+    transform: scale(1.2);
+}
+#ingresar{
+    position: relative;
+    width: 100px;
+    height: 50px;
+    align-items: center;
+    display: grid;
+    margin: 12px auto;
+}
+#singin{
+    background-color: rgb(158, 158, 158);
+}
+#formulario{
+    width: 300px;
+    height: 400px;
+    align-items: center;
+    display: grid;
+    margin: 0 auto;
+} */
