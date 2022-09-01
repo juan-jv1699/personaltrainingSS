@@ -7,8 +7,13 @@ require_once('views/layouts/sidebar.php');
 if(isset($_GET['controller'])){
     $controller_name = $_GET['controller'].'controler';
 }
+elseif(!isset($_GET['controller']) && !isset($_GET['action'])){
+    $controller_name = controler_default;
+
+}
 else {
-    echo "La pagina que buscas no existe 1";
+    $error = new errorcontroler();
+    $error->index();
     exit();
 }
 if(class_exists($controller_name)){
@@ -16,13 +21,18 @@ if(class_exists($controller_name)){
     if(isset($_GET['action']) && method_exists($controller,$_GET['action'])){
         $action =  $_GET['action'];
         $controller->$action();
+    }elseif(!isset($_GET['controller']) && !isset($_GET['action'])){
+        $default = action_default;
+        $controller->$default();
     }
     else{
-        echo "la pagina que buscas no existe 2";
+        $error = new errorcontroler();
+        $error->index();
     }
 
 }else {
-    echo "la pagina que buscas no existe 3";
+    $error = new errorcontroler();
+    $error->index();
 }   
 
 require_once('views/layouts/footer.php');
