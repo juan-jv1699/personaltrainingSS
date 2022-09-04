@@ -1,3 +1,14 @@
+<h2>Registro</h2>
+<?php if(isset($_SESSION['register']) && $_SESSION['register'] == 'complete'): ?>
+  <div class="alert alert-success" role="alert">
+    Registro completo correctamente
+  </div>
+<?php elseif(isset($_SESSION['register']) && $_SESSION['register'] == 'failed'): ?>
+  <div class="alert alert-success" role="alert">
+    Registro incompleto, introduce bien los datos
+  </div>
+<?php endif;?>
+<?php utils::deleteSession('register');?>
 <form action="/?controller=usuario&action=save" method="POST">
     <div class="mb-3">
       <label for="name" class="form-label">Nombre</label>
