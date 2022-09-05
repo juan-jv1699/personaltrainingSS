@@ -7,4 +7,17 @@ class utils {
         }
         return $name;
     }
-}
+    public static function isAdmin(){
+        if(!$_SESSION['admin']){
+            header("location:".base_url);
+        }else{
+            return true;
+        }
+    }
+    public static function showCategorias(){
+        require_once("models/categoria.php");
+        $categoria = new categoria();
+        $categorias = $categoria->getAll();
+        return $categorias;
+    }
+}//en class

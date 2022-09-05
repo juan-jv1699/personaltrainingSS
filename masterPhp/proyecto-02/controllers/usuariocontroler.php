@@ -43,7 +43,7 @@ class usuariocontroler{
 
             if($identity && is_object($identity)){
                 $_SESSION['identity'] = $identity;
-                if($identity->rol == 'admin');{
+                if($identity->rol == 'admin'){
                     $_SESSION['admin'] = true;
                 }
             }else{

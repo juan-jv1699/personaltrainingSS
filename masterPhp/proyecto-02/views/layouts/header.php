@@ -15,10 +15,11 @@
             <!-- navbar -->
             <nav class="navbar navbar-expand navbar-dark bg-dark">
                 <div class="nav navbar-nav">
-                    <a class="nav-item nav-link active" href="#" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">Categoria 1</a>
-                    <a class="nav-item nav-link" href="#">Categoria 2</a>
-                    <a class="nav-item nav-link" href="#">Categoria 3</a>
+                    <?php $categorias = utils::showCategorias();?>
+                    <a class="nav-item nav-link active" href="<?=base_url?>" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+                    <?php while($cat = $categorias->fetch_object()):?>
+                    <a class="nav-item nav-link" href=""><?=$cat->nombre?></a>
+                    <?php endwhile?>
                 </div>
             </nav>
         </div>
