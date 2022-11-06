@@ -3,7 +3,18 @@ require_once('models/producto.php');
 class productocontroler{
 
     public function index(){
+        $producto = new producto();
+        $productos = $producto->getRandom(6);
         require_once('views/producto/destacados.php');
+    }
+    public function view(){
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $producto= new Producto();
+            $producto->setId($id);
+            $pro = $producto->getOnce(); 
+        }
+        require_once 'views/producto/viewOne.php';
     }
     public function manage(){
         utils::isAdmin();
@@ -36,19 +47,30 @@ class productocontroler{
                 $producto->setStock($stock);
                 
                 //guardar imagen
-                $file = $_FILES['image'];
-                $filename = $file['name'];
-                $mimetype = $file['type'];
-
-                if($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png" || $mimetype == "image/gif"){
-                    if(!is_dir('uploads/images')){
-                        mkdir('uploads/images', 0777,true);
+                if(isset($_FILES['image'])){
+                    $file = $_FILES['image'];
+                    $filename = $file['name'];
+                    $mimetype = $file['type'];
+    
+                    if($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png" || $mimetype == "image/gif"){
+                        if(!is_dir('uploads/images')){
+                            mkdir('uploads/images', 0777,true);
+                        }
+                        move_uploaded_file($file['tmp_name'],'uploads/images/'.$filename);
+                        $producto->setImagen($filename);
                     }
-                    move_uploaded_file($file['tmp_name'],'uploads/images'.$filename);
-                    $producto->setImagen($filename);
                 }
 
-                $save = $producto->save();
+                if(isset($_GET['id'])){
+                    $id = $_GET['id'];
+                    $producto->setId($id);
+
+                    $save = $producto->edit();
+                } else {
+                    $save = $producto->save();
+                }
+
+
                 if($save){
                     $_SESSION['product']="complete";
                 }else {
@@ -64,6 +86,15 @@ class productocontroler{
     }
     public function edit(){
         utils::isAdmin();
+        if(isset($_GET['id'])){
+            $edit = true;
+            $producto= new Producto();
+            $producto->setId($_GET['id']);
+            $pro = $producto->getOnce(); 
+            require_once 'views/producto/create.php';
+        }else{
+            header("location:".base_url."/?controller=producto&action=manage");
+        }
 
     }
     public function delete(){
@@ -72,7 +103,12 @@ class productocontroler{
             $id = $_GET['id'];
             $producto = new producto();
             $producto->setId($id);
+            $image = $producto->getOnce();
+            $name = $image->producto_image;
             $delete = $producto->delete();
+            if(file_get_contents("uploads/images/$name") != null){
+                unlink("uploads/images/$name");
+            }
             if($delete){
                 $_SESSION['delete'] = "complete";
             }else{

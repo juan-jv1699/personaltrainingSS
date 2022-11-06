@@ -65,9 +65,9 @@
                                     <a class="btn btn-outline-primary" href="<?= base_url?>/?controller=usuario&action=logout">cerrar sesion</a>
                                     </div>
                                 </div>  
-                            <?php endif; ?>
+                            <?php endif?>
                             
-                        <?php endif;?>
+                        <?php endif?>
                     </div>
                     <div class="card col-8 p-4">
                         <div class="container">

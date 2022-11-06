@@ -1,0 +1,15 @@
+.card-personalizada {
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    height: 420px;
+}
+
+.img-personalizada {
+    height: 200px;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
